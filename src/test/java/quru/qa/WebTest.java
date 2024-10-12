@@ -55,7 +55,6 @@ public class WebTest {
             "alden@example.com", "cierra@example.com", "kierra@example.com"
     })
     @ParameterizedTest(name = "Поиск по email существующего сотрудника. Поисковой запрос с email {0} не должен отдавать пустой список")
-
     @Tag("regression")
     void employeeSearchByEmailTest(String searchQuery) {
 
@@ -79,9 +78,7 @@ public class WebTest {
     @ValueSource(strings = {
             "Compliance", "Insurance", "Legal"
     })
-
     @ParameterizedTest(name = "Поиск по отделению существующего сотрудника. Поисковой запрос по отделению {0} не должен отдавать пустой список")
-
     @Tag("regression")
     @DisplayName("Поиск по отделению сотрудника")
     void employeeSearchByDepartmentTest(String searchQuery) {
@@ -101,7 +98,6 @@ public class WebTest {
     void employeeSearchByFullNameCsvSourceTest(String firstName, String lastName) {
         $("#searchBox").setValue(firstName).pressEnter();
         $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
-
         $("#searchBox").setValue(lastName).pressEnter();
         $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
     }
@@ -113,7 +109,6 @@ public class WebTest {
 
         $("#searchBox").setValue(firstName).pressEnter();
         $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
-
         $("#searchBox").setValue(lastName).pressEnter();
         $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
 
