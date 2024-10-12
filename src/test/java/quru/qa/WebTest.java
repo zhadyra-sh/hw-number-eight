@@ -2,7 +2,8 @@ package quru.qa;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
+
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
@@ -86,6 +87,34 @@ public class WebTest {
     void employeeSearchByDepartmentTest(String searchQuery) {
 
         $("#searchBox").setValue(searchQuery).pressEnter();
+        $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
+
+    }
+
+    @ParameterizedTest(name = "Поиск по имени и фамилии с использованием @CsvSource")
+    @CsvSource({
+            "Alden, Cantrell",
+            "Cierra, Vega",
+            "Kierra, Gentry"
+    })
+    @Tag("regression")
+    void employeeSearchByFullNameCsvSourceTest(String firstName, String lastName) {
+        $("#searchBox").setValue(firstName).pressEnter();
+        $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
+
+        $("#searchBox").setValue(lastName).pressEnter();
+        $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
+    }
+
+    @ParameterizedTest(name = "Поиск по имени и фамилии с использованием @CsvFileSource")
+    @CsvFileSource(resources = "/data/test_data.csv")
+    @Tag("regression")
+    void employeeSearchByFullNameCsvFileSourceTest(String firstName, String lastName) {
+
+        $("#searchBox").setValue(firstName).pressEnter();
+        $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
+
+        $("#searchBox").setValue(lastName).pressEnter();
         $$(".rt-tbody .rt-tr").shouldHave(sizeGreaterThan(0));
 
     }
